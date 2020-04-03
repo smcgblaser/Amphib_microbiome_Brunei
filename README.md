@@ -52,4 +52,84 @@ Frog_Microbiome_Run_1
 #Link to forum post I created asking about plot interpretation. Helps to understand how to understand these plots.
 https://forum.qiime2.org/t/interactive-quality-plot-interpretation-and-colors/1843
 
+#Imported the forward reads from Illumina runs Frog1 and Frog2 (did two runs because got really low coverage from the first run).
+#Had to copy all R1 files from FrogRun1 and FrogRun2 into a new folder.  Renamed each file with R1 or R2 at the end of each SampleID name to identify which run each file came from.
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime tools import --type 'SampleData[SequencesWithQuality]' --input-path ~/amphib_micro_brunei/Frog_Microbiome_Forward_Reads/ --input-format CasavaOneEightSingleLanePerSampleDirFmt --output-path demux-frog-forward-reads.qza    
+Imported Frog_Microbiome_Forward_Reads/ as CasavaOneEightSingleLanePerSampleDirFmt to demux-frog-forward-reads.qza
+
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime demux summarize --i-data demux-frog-forward-reads.qza --o-visualization demux-frog-forward-reads.qzv  Saved Visualization to: demux-frog-forward-reads.qzv  
+
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ cp -r ~/amphib_micro_brunei/demux-frog-forward-reads.qzv /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/Visualizations/  
+
+##Based on this plot of my forward reads, I would like to trim to a length where >50% of my reads fall below q 20, therefore I will trim at sequence base 220.
+##Forward primer (515F) is 19 nucleotides long so will trim 19 from the front (left).
+##Next I filtered sequences based on quality score. I used the default command options provided via QIIME2 (minimum PHRED score =4, maximum number of consecutive low PHRED =3, maximum number of ambiguous (i.e., N) base calls =0).
+##Link to code information https://docs.qiime2.org/2018.2/plugins/available/quality-filter/q-score/
+
+##Link to documentation regarding these numbers https://qiita.ucsd.edu/static/doc/html/deblur_quality.html
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime quality-filter q-score --i-demux demux-frog-forward-reads.qza --o-filtered-sequences demux-filtered-frog-forward-reads.qza --o-filter-stats demux-filter-stats-frog-forward-reads.qza Saved SampleData[SequencesWithQuality] to: demux-filtered-frog-forward-reads.qza    Saved QualityFilterStats to: demux-filter-stats-frog-forward-reads.qza   
+
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime deblur denoise-16S --i-demultiplexed-seqs demux-filtered-frog-forward-reads.qza --p-trim-length 220 --p-left-trim-len 19 --o-representative-sequences rep-seqs-deblur-frog-forward-reads.qza --p-sample-stats --o-stats deblur-frog-forward-read-stats.qza --o-table table-deblur-frog-forward-reads.qza                                  Saved FeatureTable[Frequency] to: table-deblur-frog-forward-reads.qza               
+Saved FeatureData[Sequence] to: rep-seqs-deblur-frog-forward-reads.qza              
+Saved DeblurStats to: deblur-frog-forward-read-stats.qza 
+
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime metadata tabulate --m-input-file demux-filter-stats-frog-forward-reads.qza --o-visualization demux-filter-stats-frog-forward-reads.qzv                                                
+Saved Visualization to: demux-filter-stats-frog-forward-reads.qzv                   
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime deblur visualize-stats --i-deblur-stats deblur-frog-forward-read-stats.qza --o-visualization deblur-frog-forward-read-stats.qzv                                                       
+Saved Visualization to: deblur-frog-forward-read-stats.qzv  
+
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime feature-table summarize --i-table table-deblur-frog-forward-reads.qza --o-visualization table-deblur-frog-forward-reads.qzv --m-sample-metadata-file '/mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/Metadata/Frog_Micro_Metadata_2020.2 - Sheet1.tsv'       
+Saved Visualization to: table-deblur-frog-forward-reads.qzv  
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ cp -r ~/amphib_micro_brunei/table-deblur-frog-forward-reads.qzv /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/Visualizations/  
+
+##Sequence count per sample ranges from 22958 to 2078.  Used the interactive sample detail to determine sampling depth (3,500).
+##The rep-seqs visualization file allows you to interactively BLAST against the NCBI database.
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime feature-table tabulate-seqs --i-data rep-seqs-deblur-frog-forward-reads.qza --o-visualization rep-seqs-deblur-frog-forward-reads.qzv                                                  
+Saved Visualization to: rep-seqs-deblur-frog-forward-reads.qzv                      
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ cp -r ~/amphib_micro_brunei/rep-seqs-deblur-frog-forward-reads.qzv /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/Visualizations/ 
+
+
+##Generating phylogenetic trees for diversity analyses.
+
+##Multiple sequence alignment via mafft.
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime alignment mafft --i-sequences rep-seqs-deblur-frog-forward-reads.qza --o-alignment aligned-rep-seqs-frog-forward-reads.qza                                                            
+Saved FeatureData[AlignedSequence] to: aligned-rep-seqs-frog-forward-reads.qza 
+
+##Masked (filtered) alignment to remove highly variable sections.
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime alignment mask --i-alignment aligned-rep-seqs-frog-forward-reads.qza --o-masked-alignment masked-aligned-rep-seqs-frog-forward-reads.qza                                              
+Saved FeatureData[AlignedSequence] to: masked-aligned-rep-seqs-frog-forward-reads.qza        
+
+##Creating an unrooted tree via fasttree.
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime phylogeny fasttree --i-alignment masked-aligned-rep-seqs-frog-forward-reads.qza --o-tree unrooted-tree-frog-forward-reads.qza                                                         
+Saved Phylogeny[Unrooted] to: unrooted-tree-frog-forward-reads.qza 
+
+##Now rooting our tree to use in analyses (using a midpoint root).
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime phylogeny midpoint-root --i-tree unrooted-tree-frog-forward-reads.qza --o-rooted-tree rooted-tree-frog-forward-reads.qza                                                              
+Saved Phylogeny[Rooted] to: rooted-tree-frog-forward-reads.qza  
+
+##Before continuing with examination of alpha and beta diversity metrics, I want to visualize the alpha rarefaction plots to see if I captured the total diversity of my samples.
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime diversity alpha-rarefaction --i-table table-deblur-frog-forward-reads.qza --i-phylogeny rooted-tree-frog-forward-reads.qza --p-max-depth 4500 --m-metadata-file '/mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/Metadata/Frog_Micro_Metadata_2020.2 - Sheet1.tsv' --o-visualization alpha-rarefaction-frog-forward-reads.qzv                     
+Saved Visualization to: alpha-rarefaction-frog-forward-reads.qzv                    
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ cp -r ~/amphib_micro_brunei/alpha-rarefaction-frog-forward-reads.qzv /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/Visualizations/    
+
+##This visualization produces two plots.  Here is the information about what these plots mean.
+“The visualization will have two plots. The top plot is an alpha rarefaction plot, and is primarily used to determine if the richness of the samples has been fully observed or sequenced. If the lines in the plot appear to “level out” (i.e., approach a slope of zero) at some sampling depth along the x-axis, that suggests that collecting additional sequences beyond that sampling depth would not be likely to result in the observation of additional features. If the lines in a plot don’t level out, this may be because the richness of the samples hasn’t been fully observed yet (because too few sequences were collected), or it could be an indicator that a lot of sequencing error remains in the data (which is being mistaken for novel diversity).
+
+The bottom plot in this visualization is important when grouping samples by metadata. It illustrates the number of samples that remain in each group when the feature table is rarefied to each sampling depth. If a given sampling depth d is larger than the total frequency of a sample s (i.e., the number of sequences that were obtained for sample s), it is not possible to compute the diversity metric for sample s at sampling depth d. If many of the samples in a group have lower total frequencies than d, the average diversity presented for that group at d in the top plot will be unreliable because it will have been computed on relatively few samples. When grouping samples by metadata, it is therefore essential to look at the bottom plot to ensure that the data presented in the top plot is reliable.”
+
+##Based on these plots I feel that the sequencing depth of 4500 captures the total diversity in the samples and increasing my sampling depth would not provide more accurate data for diversity calculations.
+
+##Next I assigned taxonomy using a pre-trained classifier (Native-Bayes trained on Greengenes database 515F/806R region) downloaded from here…
+https://docs.qiime2.org/2018.2/data-resources/#taxonomy-classifiers-for-use-with-q2-feature-classifier
+
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ wget \              >   -O "gg-13-8-99-515-806-nb-classifier.qza" \                                     >   "https://data.qiime2.org/2020.2/common/gg-13-8-99-515-806-nb-classifier.qza"    Will not apply HSTS. The HSTS database must be a regular and non-world-writable file.                                                                                   ERROR: could not open HSTS store at '/home/mcgratse/.wget-hsts'. HSTS will be disabled.                                                                                 --2020-04-03 10:43:26--  https://data.qiime2.org/2020.2/common/gg-13-8-99-515-806-nb-classifier.qza                                                                     Resolving data.qiime2.org (data.qiime2.org)... 52.35.38.247                         Connecting to data.qiime2.org (data.qiime2.org)|52.35.38.247|:443... connected.     HTTP request sent, awaiting response... 302 FOUND                                   Location: https://s3-us-west-2.amazonaws.com/qiime2-data/2020.2/common/gg-13-8-99-515-806-nb-classifier.qza [following]                                                 --2020-04-03 10:43:27--  https://s3-us-west-2.amazonaws.com/qiime2-data/2020.2/common/gg-13-8-99-515-806-nb-classifier.qza                                              Resolving s3-us-west-2.amazonaws.com (s3-us-west-2.amazonaws.com)... 52.218.222.24  Connecting to s3-us-west-2.amazonaws.com (s3-us-west-2.amazonaws.com)|52.218.222.24|:443... connected.                                                                  HTTP request sent, awaiting response... 200 OK                                      Length: 28373581 (27M) [application/x-www-form-urlencoded]                          Saving to: ‘gg-13-8-99-515-806-nb-classifier.qza’                                                                                                                       gg-13-8-99-515-806-n 100%[======================>]  27.06M  10.6MB/s    in 2.6s                                                                                         2020-04-03 10:43:30 (10.6 MB/s) - ‘gg-13-8-99-515-806-nb-classifier.qza’ saved [28373581/28373581]    
+
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime feature-classifier classify-sklearn --i-classifier gg-13-8-99-515-806-nb-classifier.qza --i-reads rep-seqs-deblur-frog-forward-reads.qza --o-classification taxonomy-frog-forward-reads.qza                Saved FeatureData[Taxonomy] to: taxonomy-frog-forward-reads.qza
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime metadata tabulate --m-input-file taxonomy-frog-forward-reads.qza --o-visualization taxonomy-frog-forward-reads.qzv        
+Saved Visualization to: taxonomy-frog-forward-reads.qzv         
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ cp -r ~/amphib_micro_brunei/taxonomy-frog-forward-reads.qzv /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/Visualizations/           
+
+
+
+
 
