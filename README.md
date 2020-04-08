@@ -130,6 +130,21 @@ Saved Visualization to: taxonomy-frog-forward-reads.qzv
 (qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ cp -r ~/amphib_micro_brunei/taxonomy-frog-forward-reads.qzv /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/Visualizations/           
 
 
+#Make grouped table.
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime feature-table group --i-table table-deblur-frog-forward-reads.qza --p-axis sample --m-metadata-file '/mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/Metadata/Frog_Micro_Metadata_2020.2 - Sheet1 (1).tsv' --m-metadata-column True_SampleID --p-mode sum --o-grouped-table grouped-table-deblur-frog-forward-reads.qza                                                       
+Saved FeatureTable[Frequency] to: grouped-table-deblur-frog-forward-reads.qza                                                   
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime feature-table summarize --i-table grouped-table-deblur-frog-forward-reads.qza --o-visualization grouped-table-deblur-frog-forward-reads.qzv                                               
+Saved Visualization to: grouped-table-deblur-frog-forward-reads.qzv         
 
+#Exported files to use in R
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime tools export --input-path table-deblur-frog-forward-reads.qza --output-path /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-deblur-frog-forward-reads 
+Exported table-deblur-frog-forward-reads.qza as BIOMV210DirFmt to directory /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-deblur-frog-forward-reads                                                         
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime tools export --input-path rooted-tree-frog-forward-reads.qza --output-path /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-rooted-tree-frog-forward-reads   
+Exported rooted-tree-frog-forward-reads.qza as NewickDirectoryFormat to directory /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-rooted-tree-frog-forward-reads                                                    
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime tools export --input-path taxonomy-frog-forward-reads.qza --output-path /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-taxonomy-frog-forward-reads      Exported taxonomy-frog-forward-reads.qza as TSVTaxonomyDirectoryFormat to directory /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-taxonomy-frog-forward-reads    
+
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ cp -r /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-taxonomy-frog-forward-reads/taxonomy.tsv /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-taxonomy-frog-forward-reads/biom-taxonomy.tsv   
+
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ biom add-metadata -i /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-deblur-frog-forward-reads/feature-table.biom -o /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-deblur-frog-forward-reads/table-with-taxonomy.biom --observation-metadata-fp '/mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/Metadata/Frog_Micro_Metadata_2020.2 - Sheet1 (1).tsv' --sc-separated taxonomy    
 
 
