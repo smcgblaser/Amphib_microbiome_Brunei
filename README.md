@@ -145,6 +145,13 @@ Exported rooted-tree-frog-forward-reads.qza as NewickDirectoryFormat to director
 
 (qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ cp -r /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-taxonomy-frog-forward-reads/taxonomy.tsv /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-taxonomy-frog-forward-reads/biom-taxonomy.tsv   
 
+#
+
+#I do not think this is correct
 (qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ biom add-metadata -i /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-deblur-frog-forward-reads/feature-table.biom -o /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-deblur-frog-forward-reads/table-with-taxonomy.biom --observation-metadata-fp '/mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/Metadata/Frog_Micro_Metadata_2020.2 - Sheet1 (1).tsv' --sc-separated taxonomy    
+
+#Re-ran the code as this...
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ biom add-metadata -i /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-deblur-frog-forward-reads/feature-table.biom -o /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-deblur-frog-forward-reads/table-with-taxonomy.biom --observation-metadata-fp '/mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-taxonomy-frog-forward-reads/biom-taxonomy.tsv' --sc-separated taxonomy     
+
 
 
