@@ -153,5 +153,18 @@ Exported rooted-tree-frog-forward-reads.qza as NewickDirectoryFormat to director
 #Re-ran the code as this...
 (qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ biom add-metadata -i /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-deblur-frog-forward-reads/feature-table.biom -o /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-deblur-frog-forward-reads/table-with-taxonomy.biom --observation-metadata-fp '/mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-taxonomy-frog-forward-reads/biom-taxonomy.tsv' --sc-separated taxonomy     
 
+#Still was not working so found some more information on this forum...https://forum.qiime2.org/t/biom-add-metadata-problem/8302/15
+#Before running this, I went to the biom-taxonomy.tsv file and changed the header to #OTUID (tab) taxonomy (tab) confidence.
+#Then ran this code.
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ biom add-metadata -i /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-deblur-frog-forward-reads/feature-table.biom -o /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-deblur-frog-forward-reads/table-with-taxonomy.biom --observation-metadata-fp '/mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-taxonomy-frog-forward-reads/biom-taxonomy.tsv' --sc-separated taxonomy                               
 
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ biom convert -i /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-deblur-frog-forward-reads/table-with-taxonomy.biom  -o /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-deblur-frog-forward-reads/table-with-taxonomy.tsv --to-tsv --header-key taxonomy    
+
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ biom head -i /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-deblur-frog-forward-reads/table-with-taxonomy.tsv                
+# Constructed from biom file                                                                                            
+#OTU ID AFCN1R1 AFCN1R2 AFCN2R1 AFCN2R2 AFCN3R1                                                                         237c27a2fe9ca9dabc0df88201ab7a87        1374.0  3486.0  0.0     0.0     0.0                                             e79a0e75fb6d179a719843ec80071e27        891.0   2222.0  0.0     0.0     0.0                                             82587105b8072b9fe258652b741704a8        207.0   564.0   5.0     25.0    4.0                                             64a6299a3845b8876341ea645bbed657        150.0   447.0   0.0     2.0     307.0                                           c3a1660be67fd87761a29eac85dbf344        136.0   367.0   0.0     0.0     2.0   
+
+#Checked the table-with-taxonomy.tsv file in Notepad and it does have a taxonomy column added at the end of the column list.
+
+#Brought it into R.  This fucking worked.  Holy fucking fuck.
 
