@@ -127,14 +127,7 @@ https://docs.qiime2.org/2018.2/data-resources/#taxonomy-classifiers-for-use-with
 (qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime feature-classifier classify-sklearn --i-classifier gg-13-8-99-515-806-nb-classifier.qza --i-reads rep-seqs-deblur-frog-forward-reads.qza --o-classification taxonomy-frog-forward-reads.qza                Saved FeatureData[Taxonomy] to: taxonomy-frog-forward-reads.qza
 (qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime metadata tabulate --m-input-file taxonomy-frog-forward-reads.qza --o-visualization taxonomy-frog-forward-reads.qzv        
 Saved Visualization to: taxonomy-frog-forward-reads.qzv         
-(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ cp -r ~/amphib_micro_brunei/taxonomy-frog-forward-reads.qzv /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/Visualizations/           
-
-
-#Make grouped table.
-(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime feature-table group --i-table table-deblur-frog-forward-reads.qza --p-axis sample --m-metadata-file '/mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/Metadata/Frog_Micro_Metadata_2020.2 - Sheet1 (1).tsv' --m-metadata-column True_SampleID --p-mode sum --o-grouped-table grouped-table-deblur-frog-forward-reads.qza                                                       
-Saved FeatureTable[Frequency] to: grouped-table-deblur-frog-forward-reads.qza                                                   
-(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime feature-table summarize --i-table grouped-table-deblur-frog-forward-reads.qza --o-visualization grouped-table-deblur-frog-forward-reads.qzv                                               
-Saved Visualization to: grouped-table-deblur-frog-forward-reads.qzv         
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ cp -r ~/amphib_micro_brunei/taxonomy-frog-forward-reads.qzv /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/Visualizations/                  
 
 #Exported files to use in R
 (qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime tools export --input-path table-deblur-frog-forward-reads.qza --output-path /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-deblur-frog-forward-reads 
@@ -166,5 +159,17 @@ Exported rooted-tree-frog-forward-reads.qza as NewickDirectoryFormat to director
 
 #Checked the table-with-taxonomy.tsv file in Notepad and it does have a taxonomy column added at the end of the column list.
 
-#Brought it into R.  This fucking worked.  Holy fucking fuck.
+#Brought this into R and it worked!!!!
+
+#Ran some stats in R (see R file) and found that run effects did not significantly change beta diversity metrics.  Therefore decided to make a grouped file with the feature table collapsed/grouped by True_SampleID (this is the sample ID without the -1 and -2 denoting run after each sample name).
+
+
+#Make grouped table.
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime feature-table group --i-table table-deblur-frog-forward-reads.qza --p-axis sample --m-metadata-file '/mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/Metadata/Frog_Micro_Metadata_2020.2 - Sheet1 (1).tsv' --m-metadata-column True_SampleID --p-mode sum --o-grouped-table grouped-table-deblur-frog-forward-reads.qza             
+Saved FeatureTable[Frequency] to: grouped-table-deblur-frog-forward-reads.qza                                                   
+
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime feature-table summarize --i-table grouped-table-deblur-frog-forward-reads.qza --o-visualization grouped-table-deblur-frog-forward-reads.qzv                                               
+Saved Visualization to: grouped-table-deblur-frog-forward-reads.qzv  
+
+#Export this file for use in R.
 
