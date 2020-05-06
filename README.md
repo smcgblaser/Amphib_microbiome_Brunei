@@ -1,4 +1,4 @@
-# Amphib_microbiome_Brunei
+##### Amphib_microbiome_Brunei
 Frog and caecilian microbiome data from Brunei, Borneo.  Collected and analyzed as part of my Master's work with James Madison University.
 
 Miniconda and Ubuntu terminal already installed.
@@ -16,7 +16,7 @@ Made new directory for all working files within the pipeline.
 (qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~$ mkdir amphib_micro_brunei   
 (qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~$ cd amphib_micro_brunei/ 
 
-Import sequencing files (from Illumina sequencing runs) into directory for visualization.
+######Import sequencing files (from Illumina sequencing runs) into directory for visualization.
 
 #Had to copy folder with sequences from Windows 10 to Ubuntu terminal
 #Files can be accessed in Ubuntu command line from /mnt/c/Users/Sarah (this is where items are more perminently "mounted" to Ubuntu).
@@ -89,7 +89,7 @@ Saved Visualization to: rep-seqs-deblur-frog-forward-reads.qzv
 (qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ cp -r ~/amphib_micro_brunei/rep-seqs-deblur-frog-forward-reads.qzv /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/Visualizations/ 
 
 
-##Generating phylogenetic trees for diversity analyses.
+###########Generating phylogenetic trees for diversity analyses.
 
 ##Multiple sequence alignment via mafft.
 (qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime alignment mafft --i-sequences rep-seqs-deblur-frog-forward-reads.qza --o-alignment aligned-rep-seqs-frog-forward-reads.qza                                                            
@@ -129,7 +129,7 @@ https://docs.qiime2.org/2018.2/data-resources/#taxonomy-classifiers-for-use-with
 Saved Visualization to: taxonomy-frog-forward-reads.qzv         
 (qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ cp -r ~/amphib_micro_brunei/taxonomy-frog-forward-reads.qzv /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/Visualizations/                  
 
-#Exported files to use in R
+####################Exported files to use in R
 (qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime tools export --input-path table-deblur-frog-forward-reads.qza --output-path /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-deblur-frog-forward-reads 
 Exported table-deblur-frog-forward-reads.qza as BIOMV210DirFmt to directory /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-deblur-frog-forward-reads                                                         
 (qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime tools export --input-path rooted-tree-frog-forward-reads.qza --output-path /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-rooted-tree-frog-forward-reads   
@@ -138,7 +138,6 @@ Exported rooted-tree-frog-forward-reads.qza as NewickDirectoryFormat to director
 
 (qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ cp -r /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-taxonomy-frog-forward-reads/taxonomy.tsv /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-taxonomy-frog-forward-reads/biom-taxonomy.tsv   
 
-#
 
 #I do not think this is correct
 (qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ biom add-metadata -i /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-deblur-frog-forward-reads/feature-table.biom -o /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-deblur-frog-forward-reads/table-with-taxonomy.biom --observation-metadata-fp '/mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/Metadata/Frog_Micro_Metadata_2020.2 - Sheet1 (1).tsv' --sc-separated taxonomy    
@@ -146,6 +145,7 @@ Exported rooted-tree-frog-forward-reads.qza as NewickDirectoryFormat to director
 #Re-ran the code as this...
 (qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ biom add-metadata -i /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-deblur-frog-forward-reads/feature-table.biom -o /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-deblur-frog-forward-reads/table-with-taxonomy.biom --observation-metadata-fp '/mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-taxonomy-frog-forward-reads/biom-taxonomy.tsv' --sc-separated taxonomy     
 
+###############BIOM add metadata and convert
 #Still was not working so found some more information on this forum...https://forum.qiime2.org/t/biom-add-metadata-problem/8302/15
 #Before running this, I went to the biom-taxonomy.tsv file and changed the header to #OTUID (tab) taxonomy (tab) confidence.
 #Then ran this code.
@@ -171,5 +171,5 @@ Saved FeatureTable[Frequency] to: grouped-table-deblur-frog-forward-reads.qza
 (qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime feature-table summarize --i-table grouped-table-deblur-frog-forward-reads.qza --o-visualization grouped-table-deblur-frog-forward-reads.qzv                                               
 Saved Visualization to: grouped-table-deblur-frog-forward-reads.qzv  
 
-#Export this file for use in R.
+#Exported this file for use in R.
 
