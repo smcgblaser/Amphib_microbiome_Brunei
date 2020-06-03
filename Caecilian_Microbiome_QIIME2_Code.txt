@@ -1,0 +1,93 @@
+mcgratse@DESKTOP-0PO1GR1:~$ source activate qiime2-2020.2
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~$ cp -r /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/Caecilian_Microbiome_Run_2/Caecilian_2/ ~/amphib_micro_brunei/
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~$ ls
+ Miniconda3-latest-Linux-x86_64.sh   amphib_micro_brunei   miniconda.sh   miniconda3   smb.conf  '~amphib_micro_brunei'
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~$ cd amphib_micro_brunei/
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ ls
+Caecilian_2                                demux-paired-end-frog1.qzv
+Frog-45501458                              demux-paired-end-frog2.qza
+Frog_Microbiome_Forward_Reads              demux-paired-end-frog2.qzv
+Frog_Microbiome_Run_1                      gg-13-8-99-515-806-nb-classifier.qza
+Frog_Microbiome_Run_2                      grouped-table-deblur-frog-forward-reads.qza
+aligned-rep-seqs-frog-forward-reads.qza    grouped-table-deblur-frog-forward-reads.qzv
+alpha-rarefaction-frog-forward-reads.qzv   masked-aligned-rep-seqs-frog-forward-reads.qza
+deblur-frog-forward-read-stats.qza         otu-table-frog-forward-reads.txt
+deblur-frog-forward-read-stats.qzv         rep-seqs-deblur-frog-forward-reads.qza
+deblur.log                                 rep-seqs-deblur-frog-forward-reads.qzv
+demux-filter-stats-frog-forward-reads.qza  rooted-tree-frog-forward-reads.qza
+demux-filter-stats-frog-forward-reads.qzv  table-deblur-frog-forward-reads.qza
+demux-filtered-frog-forward-reads.qza      table-deblur-frog-forward-reads.qzv
+demux-frog-forward-reads.qza               taxonomy-frog-forward-reads.qza
+demux-frog-forward-reads.qzv               taxonomy-frog-forward-reads.qzv
+demux-paired-end-frog1.qza                 unrooted-tree-frog-forward-reads.qza
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ cd Caecilian_2/
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei/Caecilian_2$ ls
+C2D_S107_L001_R1_001.fastq.gz    C3L_S115_L001_R1_001.fastq.gz         CaecilianL_S101_L001_R1_001.fastq.gz
+C2D_S107_L001_R2_001.fastq.gz    C3L_S115_L001_R2_001.fastq.gz         CaecilianL_S101_L001_R2_001.fastq.gz
+C2H2O_S112_L001_R1_001.fastq.gz  C3R_S114_L001_R1_001.fastq.gz         CaecilianR_S100_L001_R1_001.fastq.gz
+C2H2O_S112_L001_R2_001.fastq.gz  C3R_S114_L001_R2_001.fastq.gz         CaecilianR_S100_L001_R2_001.fastq.gz
+C2H_S111_L001_R1_001.fastq.gz    C3V_S116_L001_R1_001.fastq.gz         CaecilianV_S102_L001_R1_001.fastq.gz
+C2H_S111_L001_R2_001.fastq.gz    C3V_S116_L001_R2_001.fastq.gz         CaecilianV_S102_L001_R2_001.fastq.gz
+C2L_S109_L001_R1_001.fastq.gz    CEnv1_S118_L001_R1_001.fastq.gz       H2O1_S104_L001_R1_001.fastq.gz
+C2L_S109_L001_R2_001.fastq.gz    CEnv1_S118_L001_R2_001.fastq.gz       H2O1_S104_L001_R2_001.fastq.gz
+C2R_S108_L001_R1_001.fastq.gz    CEnv2_S119_L001_R1_001.fastq.gz       H2O2_S105_L001_R1_001.fastq.gz
+C2R_S108_L001_R2_001.fastq.gz    CEnv2_S119_L001_R2_001.fastq.gz       H2O2_S105_L001_R2_001.fastq.gz
+C2V_S110_L001_R1_001.fastq.gz    CEnv3_S120_L001_R1_001.fastq.gz       H2O3_S106_L001_R1_001.fastq.gz
+C2V_S110_L001_R2_001.fastq.gz    CEnv3_S120_L001_R2_001.fastq.gz       H2O3_S106_L001_R2_001.fastq.gz
+C3D_S113_L001_R1_001.fastq.gz    CaecilianD_S99_L001_R1_001.fastq.gz   NA_S121_L001_R1_001.fastq.gz
+C3D_S113_L001_R2_001.fastq.gz    CaecilianD_S99_L001_R2_001.fastq.gz   NA_S121_L001_R2_001.fastq.gz
+C3H_S117_L001_R1_001.fastq.gz    CaecilianH_S103_L001_R1_001.fastq.gz
+C3H_S117_L001_R2_001.fastq.gz    CaecilianH_S103_L001_R2_001.fastq.gz
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei/Caecilian_2$ cd ..
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime tools import --type 'SampleData[PairedEndSequencesWithQuality]' --input-path Caecilian_2/ --input-format CasavaOneEightSingleLanePerSampleDirFmt --output-path demux-paired-end-caecilian.qza
+Imported Caecilian_2/ as CasavaOneEightSingleLanePerSampleDirFmt to demux-paired-end-caecilian.qza
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime demux summarize --i-data demux-paired-end-caecilian.qza --o-visualization  demux-paird-end-caecilian.qzv
+Saved Visualization to: demux-paird-end-caecilian.qzv
+
+
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~$ cp -r ~/amphib_micro_brunei/demux-paird-end-caecilian.qzv /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/Visualizations/
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~$ cd amphib_micro_brunei/
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ mv demux-paird-end-caecilian.qzv demux-paired-end-caecilian.qzv
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ cp -r ~/amphib_micro_brunei/demux-paired-end-caecilian.qzv /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/Visualizations/
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime dada2 denoise-paired --i-demultiplexed-seqs demux-paired-end-caecilian.qza --p-trim-left-f 19 --p-trim-left-r 20 --p-trunc-len-f 260 --p-trunc-len-r 220 --o-table table-dada2-caecilian-paired-reads.qza --o-representative-sequences rep-seqs-caecilian-paired.qza --o-denoising-stats denoising-stats-caecilian-paired.qza
+Saved FeatureTable[Frequency] to: table-dada2-caecilian-paired-reads.qza
+Saved FeatureData[Sequence] to: rep-seqs-caecilian-paired.qza
+Saved SampleData[DADA2Stats] to: denoising-stats-caecilian-paired.qza
+
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime feature-table summarize --i-table table-dada2-caecilian-paired-reads.qza --o-visualization table-dada2-caecilian-paired-reads.qzv --m-sample-metadata-file /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/Metadata/Caecilian_Micro_Metadata_2020.2\ -\ Sheet1.tsv
+Saved Visualization to: table-dada2-caecilian-paired-reads.qzv
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime feature-table tabulate-seqs --i-data rep-seqs-caecilian-paired.qza --o-visualization rep-seqs-caecilian-paired.qzv
+Saved Visualization to: rep-seqs-caecilian-paired.qzv
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ cp -r ~/amphib_micro_brunei/table-dada2-caecilian-paired-reads.qzv /mnt/c/Users/Sarah/Documents/Thesis/S
+equencing_and_Analysis/Visualizations/
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ cp -r ~/amphib_micro_brunei/rep-seqs-caecilian-paired.qzv /mnt/c/Users/Sarah/Documents/Thesis/Sequencing
+_and_Analysis/Visualizations/
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime metadata tabulate --m-input-file denoising-stats-caecilian-paired.qza --o-visualization denoising-stats.qzv
+Saved Visualization to: denoising-stats.qzv
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ cp -r ~/amphib_micro_brunei/denoising-stats.qzv /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analy
+sis/Visualizations/
+
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime phylogeny align-to-tree-mafft-fasttree --i-sequences rep-seqs-caecilian-paired.qza --o-alignment aligned-rep-seqs-caecilian-paired.qza --o-masked-alignment masked-aligned-rep-seqs-caecilian-paired.qza --o-tree unrooted-tree-caecilian-paired.qza --o-rooted-tree roote
+d-tree-caecilian-paired.qza
+Saved FeatureData[AlignedSequence] to: aligned-rep-seqs-caecilian-paired.qza
+Saved FeatureData[AlignedSequence] to: masked-aligned-rep-seqs-caecilian-paired.qza
+Saved Phylogeny[Unrooted] to: unrooted-tree-caecilian-paired.qza
+Saved Phylogeny[Rooted] to: rooted-tree-caecilian-paired.qza
+
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime feature-classifier classify-sklearn --i-classifier gg-13-8-99-515-806-nb-classifier.qza --i-reads rep-seqs-caecilian-paired.qza --o-classification taxonomy-caecilian-paired.qza
+Saved FeatureData[Taxonomy] to: taxonomy-caecilian-paired.qza
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime metadata tabulate --m-input-file taxonomy-caecilian-paired.qza --o-visualization taxonomy-caecilian-paired.qzv
+Saved Visualization to: taxonomy-caecilian-paired.qzv
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ cp -r ~/amphib_micro_brunei/taxonomy-caecilian-paired.qzv /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/Visualizations/
+
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime tools export --input-path table-dada2-caecilian-paired-reads.qza --output-path /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-dada2-caecilian-paired
+Exported table-dada2-caecilian-paired-reads.qza as BIOMV210DirFmt to directory /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-dada2-caecilian-paired
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime tools export --input-path rooted-tree-caecilian-paired.qza --output-path /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-rooted-tree-caecilian-paired
+Exported rooted-tree-caecilian-paired.qza as NewickDirectoryFormat to directory /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-rooted-tree-caecilian-paired
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ qiime tools export --input-path taxonomy-caecilian-paired.qza --output-path /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-taxonomy-caecilian-paired
+Exported taxonomy-caecilian-paired.qza as TSVTaxonomyDirectoryFormat to directory /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-taxonomy-caecilian-paired
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ cp -r /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-taxonomy-caecilian-paired/taxonomy.tsv /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-taxonomy-caecilian-paired/biom-taxonomy.tsv
+
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ biom add-metadata -i /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-dada2-caecilian-paired/feature-table.biom -o /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-dada2-caecilian-paired/table-with-taxonomy.biom --observation-metadata-fp '/mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-taxonomy-caecilian-paired/biom-taxonomy.tsv' --sc-separated taxonomy
+(qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ biom convert -i /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-dada2-caecilian-paired/table-with-taxonomy.biom  -o /mnt/c/Use
+rs/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-dada2-caecilian-paired/table-with-taxonomy.tsv --to-tsv --header-key taxonomy
