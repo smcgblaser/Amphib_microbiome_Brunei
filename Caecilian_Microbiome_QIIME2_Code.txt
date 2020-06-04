@@ -110,7 +110,10 @@ Exported rooted-tree-caecilian-paired.qza as NewickDirectoryFormat to directory 
 Exported taxonomy-caecilian-paired.qza as TSVTaxonomyDirectoryFormat to directory /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-taxonomy-caecilian-paired
 (qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ cp -r /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-taxonomy-caecilian-paired/taxonomy.tsv /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-taxonomy-caecilian-paired/biom-taxonomy.tsv
 
-#On computer opened the taxonomy file 
+#On computer opened the biom-taxonomy.tsv file and changed the header to #OTUID (tab) taxonomy (tab) confidence.
+#Then ran this code.
 (qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ biom add-metadata -i /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-dada2-caecilian-paired/feature-table.biom -o /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-dada2-caecilian-paired/table-with-taxonomy.biom --observation-metadata-fp '/mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-taxonomy-caecilian-paired/biom-taxonomy.tsv' --sc-separated taxonomy
 (qiime2-2020.2) mcgratse@DESKTOP-0PO1GR1:~/amphib_micro_brunei$ biom convert -i /mnt/c/Users/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-dada2-caecilian-paired/table-with-taxonomy.biom  -o /mnt/c/Use
 rs/Sarah/Documents/Thesis/Sequencing_and_Analysis/R_files/Exported_files/exported-table-dada2-caecilian-paired/table-with-taxonomy.tsv --to-tsv --header-key taxonomy
+
+#Imported these files into R for further analysis. See Caecilian_Microbiome_Analysis.R file.
